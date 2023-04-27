@@ -1,17 +1,14 @@
-import { call, put, getContext } from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 import Axios from "axios";
 import { articleActions } from "../slice/articleSlice";
 import history from "../utils/history";
 
-export function* registerArticleAsync(action,location){
-    const data = action.payload;    
-    const response = yield Axios.post("http://localhost:4000/board/", data);    
-    alert("저장되었습니다.");    
+export function* getArticleAsync(action) {
+  const id = action.payload;
 
-    console.log(response.data.id);
-    //history.push(`/article/${response.data.id}`);
-    history.push(`/article/${response.data.id}`, response.data.id);
-    //history.push({pathname: `/article/${response.data.id}`, data: response.data.id, });
-    window.location.reload(false);
-    
+  const response = yield Axios.get(`http://localhost:4000/board/${id}`);
+
+  console.log(response.data);
+
+  yield put(articleActions.getArticleAsync(response.data));
 }

@@ -15,12 +15,19 @@ export const articleSlice = createSlice({
         registerArticle: (state, {payload: article}) => {
             console.log(article);
         },
-        registerArticleAsync: (state, { payload }) => {
-            console.log(payload,"###ttt2");
-            debugger;
+        getArticle: (state, { payload: id }) => {
+            console.log(id);
+        },
+        getArticleAsync: (state ,{payload: article}) => {
+            console.log(article);
             return {
                 ...state,
-                id: payload.id,
+                id: article.id,
+                title: article.title,
+                content: article.content,
+                date: article.date,
+                editDate: article.editDate,
+                view: article.views,
             };
         },
     },
